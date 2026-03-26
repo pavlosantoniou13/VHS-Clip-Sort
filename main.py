@@ -6,8 +6,11 @@ import re
 
 # --- CONFIGURATION ---
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-INPUT_FOLDER = 'test' 
-OUTPUT_FOLDER = 'sorted_vhs'
+INPUT_FOLDER = 'test' # Folder name
+OUTPUT_FOLDER = 'sorted_vhs' # Output Folder name
+
+DATE_MIN = 1990 # Starting date(inclusive)
+DATE_MAX = 2005 # End date(inclusive)
 
 import collections # Add this at the top of your script
 
@@ -97,9 +100,8 @@ def run_scan(cap, duration, mode):
         
         if match:
             print(match)
-            if (int(match.group(0)) > 1991) :
+            if (int(match.group(0)) >= DATE_MIN and int(match.group(0)) <= DATE_MAX) :
                 matches.append(match.group(0))
-
         if len(matches) > 5 :
             return matches            
     return matches
